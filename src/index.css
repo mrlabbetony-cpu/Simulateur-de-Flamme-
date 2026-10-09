@@ -1,0 +1,550 @@
+@import "tailwindcss";
+
+/* Design Tokens & Theme Management */
+:root {
+  --body-bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-dim: #f1f5f9;
+  --surface-bright: #ffffff;
+  --surface-container-high: #e2e8f0;
+  --on-surface: #0f172a;
+  --on-surface-variant: #64748b;
+  --primary: #3b82f6;
+  --accent-container: #dbeafe;
+  --accent-fixed: #2563eb;
+  --stroke-default: #e2e8f0;
+  --ff-sans: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --ff-mono: 'Google Sans Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+:root[data-theme="dark"],
+body.dark-mode {
+  --body-bg: #090b10;
+  --surface: #0f131a;
+  --surface-dim: #151a24;
+  --surface-bright: #1c2331;
+  --surface-container-high: #242c3d;
+  --on-surface: #f1f5f9;
+  --on-surface-variant: #94a3b8;
+  --primary: #60a5fa;
+  --accent-container: #1e293b;
+  --accent-fixed: #93c5fd;
+  --stroke-default: #263043;
+}
+
+body {
+  background-color: var(--body-bg);
+  color: var(--on-surface);
+  font-family: var(--ff-sans);
+  transition: background-color 0.25s ease, color 0.25s ease;
+  min-height: 100vh;
+}
+
+/* 3D TITLE EFFECT WITH BANNER COLOR GRADIENT */
+.title-3d {
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  display: inline-block;
+  transform: perspective(600px) rotateX(1deg);
+  transform-origin: bottom center;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  background: linear-gradient(90deg, #06b6d4 0%, #38bdf8 25%, #818cf8 50%, #c084fc 75%, #ec4899 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+:root:not([data-theme="dark"]) .title-3d {
+  background: linear-gradient(90deg, #0891b2 0%, #0284c7 25%, #4f46e5 50%, #9333ea 75%, #db2777 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15)) drop-shadow(0 4px 10px rgba(8, 145, 178, 0.2));
+}
+
+:root[data-theme="dark"] .title-3d {
+  background: linear-gradient(90deg, #22d3ee 0%, #38bdf8 25%, #818cf8 50%, #c084fc 75%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 14px rgba(34, 211, 238, 0.5)) drop-shadow(0 0 24px rgba(236, 72, 153, 0.4));
+}
+
+/* BANNER COLOR GRADIENT FOR ALL BOX / CARD / PANEL TITLES */
+.card-title-gradient,
+.panel-title-gradient,
+.encadre-title-gradient {
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(90deg, #06b6d4 0%, #38bdf8 25%, #818cf8 50%, #c084fc 75%, #ec4899 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+:root:not([data-theme="dark"]) .card-title-gradient,
+:root:not([data-theme="dark"]) .panel-title-gradient,
+:root:not([data-theme="dark"]) .encadre-title-gradient {
+  background: linear-gradient(90deg, #0891b2 0%, #0284c7 25%, #4f46e5 50%, #9333ea 75%, #db2777 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 2px rgba(8, 145, 178, 0.15));
+}
+
+:root[data-theme="dark"] .card-title-gradient,
+:root[data-theme="dark"] .panel-title-gradient,
+:root[data-theme="dark"] .encadre-title-gradient {
+  background: linear-gradient(90deg, #22d3ee 0%, #38bdf8 25%, #818cf8 50%, #c084fc 75%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.35));
+}
+
+/* 3D ACTION BUTTONS WITH BANNER COLOR GRADIENT BACKGROUND */
+.btn-banner-gradient {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: linear-gradient(135deg, #06b6d4 0%, #38bdf8 25%, #818cf8 50%, #c084fc 75%, #ec4899 100%);
+  color: #ffffff;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25), 0 4px 12px rgba(6, 182, 212, 0.35), 0 2px 8px rgba(236, 72, 153, 0.35);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.btn-banner-gradient:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25), 0 6px 18px rgba(6, 182, 212, 0.5), 0 4px 12px rgba(236, 72, 153, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-banner-gradient:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.25);
+  filter: brightness(0.95);
+}
+
+.btn-banner-gradient:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 3D THEME TOGGLE BUTTON WITH BANNER GRADIENT BACKGROUND */
+.btn-toggle-3d {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 9999px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: linear-gradient(135deg, #06b6d4 0%, #38bdf8 25%, #818cf8 50%, #c084fc 75%, #ec4899 100%);
+  color: #ffffff;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25), 0 4px 12px rgba(6, 182, 212, 0.35), 0 2px 8px rgba(236, 72, 153, 0.35);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.btn-toggle-3d:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25), 0 6px 18px rgba(6, 182, 212, 0.5), 0 4px 12px rgba(236, 72, 153, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-toggle-3d:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.25);
+  filter: brightness(0.95);
+}
+
+/* 3D CHEMICAL BUTTONS WITH PHYSICAL COMPOSITION COLORS */
+.chemical-chip-3d {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: 9999px;
+  font-family: var(--ff-sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s cubic-bezier(0.3, 0.7, 0.2, 1);
+  transform: translateY(0);
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  border-right: 1px solid rgba(0, 0, 0, 0.15);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+
+.chemical-chip-3d:hover {
+  filter: brightness(1.08);
+}
+
+.chemical-chip-3d:active {
+  transform: translateY(4px) !important;
+}
+
+/* State: Selected 3D Button */
+.chemical-chip-3d.is-active {
+  transform: translateY(2px) scale(1.05);
+  filter: brightness(1.2) contrast(1.1);
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* 1. AUCUN (Standard Thermal / Steel & Gas Cyan Hue) */
+.chip-aucun {
+  background: linear-gradient(180deg, #475569 0%, #334155 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 0 #1e293b, 0 6px 10px rgba(0, 0, 0, 0.25);
+}
+.chip-aucun:hover {
+  box-shadow: 0 4px 0 #1e293b, 0 8px 14px rgba(0, 0, 0, 0.3);
+}
+.chip-aucun.is-active {
+  box-shadow: 0 2px 0 #1e293b, 0 0 20px rgba(255, 255, 255, 0.8), 0 0 10px #0ebc5f, inset 0 2px 4px rgba(0, 0, 0, 0.25);
+  outline-color: #ffffff;
+}
+
+/* 2. CUIVRE (Cu²⁺ - Vivid Emerald-Turquoise Spectral Flame #00e6b4) */
+.chip-cuivre {
+  background: linear-gradient(180deg, #00f2be 0%, #00b38c 100%);
+  color: #022c22;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+  box-shadow: 0 4px 0 #00755b, 0 6px 12px rgba(0, 230, 180, 0.35);
+}
+.chip-cuivre:hover {
+  box-shadow: 0 4px 0 #00755b, 0 8px 16px rgba(0, 230, 180, 0.5);
+}
+.chip-cuivre.is-active {
+  box-shadow: 0 2px 0 #00755b, 0 0 24px rgba(0, 230, 180, 1), 0 0 12px #ffffff, inset 0 2px 4px rgba(0, 0, 0, 0.15);
+  outline-color: #00f2be;
+}
+
+/* 3. STRONTIUM (Sr²⁺ - Intense Carmine Red Spectral Flame #ff1e3c) */
+.chip-strontium {
+  background: linear-gradient(180deg, #ff3352 0%, #e1102e 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 0 #990017, 0 6px 12px rgba(255, 30, 60, 0.35);
+}
+.chip-strontium:hover {
+  box-shadow: 0 4px 0 #990017, 0 8px 16px rgba(255, 30, 60, 0.55);
+}
+.chip-strontium.is-active {
+  box-shadow: 0 2px 0 #990017, 0 0 24px rgba(255, 30, 60, 1), 0 0 12px #ffffff, inset 0 2px 4px rgba(0, 0, 0, 0.25);
+  outline-color: #ff3352;
+}
+
+/* 4. SODIUM (Na⁺ - Characteristic Intense Gold/Yellow Doublet #ffc300) */
+.chip-sodium {
+  background: linear-gradient(180deg, #ffcf1a 0%, #f59e0b 100%);
+  color: #3b2000;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 0 #b45309, 0 6px 12px rgba(245, 158, 11, 0.35);
+}
+.chip-sodium:hover {
+  box-shadow: 0 4px 0 #b45309, 0 8px 16px rgba(245, 158, 11, 0.5);
+}
+.chip-sodium.is-active {
+  box-shadow: 0 2px 0 #b45309, 0 0 24px rgba(255, 195, 0, 1), 0 0 12px #ffffff, inset 0 2px 4px rgba(0, 0, 0, 0.15);
+  outline-color: #ffcf1a;
+}
+
+/* 5. POTASSIUM (K⁺ - Delicate Lilac / Violet Spectral Flame #b478ff) */
+.chip-potassium {
+  background: linear-gradient(180deg, #bf88ff 0%, #9333ea 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 0 #5b21b6, 0 6px 12px rgba(180, 120, 255, 0.35);
+}
+.chip-potassium:hover {
+  box-shadow: 0 4px 0 #5b21b6, 0 8px 16px rgba(180, 120, 255, 0.55);
+}
+.chip-potassium.is-active {
+  box-shadow: 0 2px 0 #5b21b6, 0 0 24px rgba(180, 120, 255, 1), 0 0 12px #ffffff, inset 0 2px 4px rgba(0, 0, 0, 0.25);
+  outline-color: #bf88ff;
+}
+
+/* 6. LITHIUM (Li⁺ - Radiant Magenta / Carmine Rose Flame #ff007f) */
+.chip-lithium {
+  background: linear-gradient(180deg, #ff2e93 0%, #e1006a 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 0 #990048, 0 6px 12px rgba(255, 0, 127, 0.35);
+}
+.chip-lithium:hover {
+  box-shadow: 0 4px 0 #990048, 0 8px 16px rgba(255, 0, 127, 0.55);
+}
+.chip-lithium.is-active {
+  box-shadow: 0 2px 0 #990048, 0 0 24px rgba(255, 0, 127, 1), 0 0 12px #ffffff, inset 0 2px 4px rgba(0, 0, 0, 0.25);
+  outline-color: #ff2e93;
+}
+
+/* 7. BARYUM (Ba²⁺ - Apple Green / Pale Lime Flame #84cc16) */
+.chip-baryum {
+  background: linear-gradient(180deg, #a3e635 0%, #65a30d 100%);
+  color: #1a2e05;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 0 #3f6212, 0 6px 12px rgba(132, 204, 22, 0.35);
+}
+.chip-baryum:hover {
+  box-shadow: 0 4px 0 #3f6212, 0 8px 16px rgba(132, 204, 22, 0.5);
+}
+.chip-baryum.is-active {
+  box-shadow: 0 2px 0 #3f6212, 0 0 24px rgba(132, 204, 22, 1), 0 0 12px #ffffff, inset 0 2px 4px rgba(0, 0, 0, 0.15);
+  outline-color: #a3e635;
+}
+
+/* 8. BORE (B³⁺ - Pure Vivid Emerald Green Flame #10b981) */
+.chip-bore {
+  background: linear-gradient(180deg, #34d399 0%, #059669 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 0 #065f46, 0 6px 12px rgba(16, 185, 129, 0.35);
+}
+.chip-bore:hover {
+  box-shadow: 0 4px 0 #065f46, 0 8px 16px rgba(16, 185, 129, 0.5);
+}
+.chip-bore.is-active {
+  box-shadow: 0 2px 0 #065f46, 0 0 24px rgba(16, 185, 129, 1), 0 0 12px #ffffff, inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  outline-color: #34d399;
+}
+
+/* 9. CALCIUM (Ca²⁺ - Brick Orange / Red-Orange Flame #ea580c) */
+.chip-calcium {
+  background: linear-gradient(180deg, #fb923c 0%, #c2410c 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 0 #7c2d12, 0 6px 12px rgba(234, 88, 12, 0.35);
+}
+.chip-calcium:hover {
+  box-shadow: 0 4px 0 #7c2d12, 0 8px 16px rgba(234, 88, 12, 0.5);
+}
+.chip-calcium.is-active {
+  box-shadow: 0 2px 0 #7c2d12, 0 0 24px rgba(234, 88, 12, 1), 0 0 12px #ffffff, inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  outline-color: #fb923c;
+}
+
+/* 10. CÉSIUM (Cs⁺ - Sky Blue / Azure Flame #0ea5e9) */
+.chip-cesium {
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 0 #0369a1, 0 6px 12px rgba(14, 165, 233, 0.35);
+}
+.chip-cesium:hover {
+  box-shadow: 0 4px 0 #0369a1, 0 8px 16px rgba(14, 165, 233, 0.5);
+}
+.chip-cesium.is-active {
+  box-shadow: 0 2px 0 #0369a1, 0 0 24px rgba(14, 165, 233, 1), 0 0 12px #ffffff, inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  outline-color: #38bdf8;
+}
+
+/* 11. INDIUM (In³⁺ - Electric Deep Indigo / Violet Flame #6366f1) */
+.chip-indium {
+  background: linear-gradient(180deg, #818cf8 0%, #4338ca 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 0 #312e81, 0 6px 12px rgba(99, 102, 241, 0.35);
+}
+.chip-indium:hover {
+  box-shadow: 0 4px 0 #312e81, 0 8px 16px rgba(99, 102, 241, 0.5);
+}
+.chip-indium.is-active {
+  box-shadow: 0 2px 0 #312e81, 0 0 24px rgba(99, 102, 241, 1), 0 0 12px #ffffff, inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  outline-color: #818cf8;
+}
+
+/* 12. RUBIDIUM (Rb⁺ - Deep Purple / Red-Violet Flame #c026d3) */
+.chip-rubidium {
+  background: linear-gradient(180deg, #d946ef 0%, #a21caf 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 0 #701a75, 0 6px 12px rgba(192, 38, 211, 0.35);
+}
+.chip-rubidium:hover {
+  box-shadow: 0 4px 0 #701a75, 0 8px 16px rgba(192, 38, 211, 0.5);
+}
+.chip-rubidium.is-active {
+  box-shadow: 0 2px 0 #701a75, 0 0 24px rgba(192, 38, 211, 1), 0 0 12px #ffffff, inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  outline-color: #d946ef;
+}
+
+/* 13. THALLIUM (Tl⁺ - Electric Vivid Pure Emerald Flame #05df72) */
+.chip-thallium {
+  background: linear-gradient(180deg, #34d399 0%, #059669 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 0 #047857, 0 6px 12px rgba(5, 223, 114, 0.35);
+}
+.chip-thallium:hover {
+  box-shadow: 0 4px 0 #047857, 0 8px 16px rgba(5, 223, 114, 0.5);
+}
+.chip-thallium.is-active {
+  box-shadow: 0 2px 0 #047857, 0 0 24px rgba(5, 223, 114, 1), 0 0 12px #ffffff, inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  outline-color: #34d399;
+}
+
+/* 14. PLOMB (Pb²⁺ - Pale Steel Blue-Gray Flame #93c5fd) */
+.chip-plomb {
+  background: linear-gradient(180deg, #93c5fd 0%, #60a5fa 100%);
+  color: #0f172a;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 0 #2563eb, 0 6px 12px rgba(147, 197, 253, 0.35);
+}
+.chip-plomb:hover {
+  box-shadow: 0 4px 0 #2563eb, 0 8px 16px rgba(147, 197, 253, 0.5);
+}
+.chip-plomb.is-active {
+  box-shadow: 0 2px 0 #2563eb, 0 0 24px rgba(147, 197, 253, 1), 0 0 12px #ffffff, inset 0 2px 4px rgba(0, 0, 0, 0.15);
+  outline-color: #93c5fd;
+}
+
+/* 15. FER (Fe / Fe³⁺ - Sparking Golden Amber Flame #f59e0b) */
+.chip-fer {
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 0 #92400e, 0 6px 12px rgba(245, 158, 11, 0.35);
+}
+.chip-fer:hover {
+  box-shadow: 0 4px 0 #92400e, 0 8px 16px rgba(245, 158, 11, 0.5);
+}
+.chip-fer.is-active {
+  box-shadow: 0 2px 0 #92400e, 0 0 24px rgba(245, 158, 11, 1), 0 0 12px #ffffff, inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  outline-color: #f59e0b;
+}
+
+/* 16. ANTIMOINE (Sb³⁺ - Frosted Celadon Pale Green Flame #5eead4) */
+.chip-antimoine {
+  background: linear-gradient(180deg, #5eead4 0%, #14b8a6 100%);
+  color: #042f2e;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 0 #0f766e, 0 6px 12px rgba(94, 234, 212, 0.35);
+}
+.chip-antimoine:hover {
+  box-shadow: 0 4px 0 #0f766e, 0 8px 16px rgba(94, 234, 212, 0.5);
+}
+.chip-antimoine.is-active {
+  box-shadow: 0 2px 0 #0f766e, 0 0 24px rgba(94, 234, 212, 1), 0 0 12px #ffffff, inset 0 2px 4px rgba(0, 0, 0, 0.15);
+  outline-color: #5eead4;
+}
+
+/* Slider Track & Range Styling */
+.lumi-slider-track {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 9999px;
+  background: #cbd5e1;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+:root[data-theme="dark"] .lumi-slider-track {
+  background: #334155;
+}
+
+.lumi-slider-track::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
+  border: 3px solid var(--flame-color, #3b82f6);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25), 0 0 0 4px var(--flame-color-glow, rgba(59, 130, 246, 0.25)), 0 0 10px var(--flame-color, #3b82f6);
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.lumi-slider-track::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35), 0 0 0 6px var(--flame-color-glow, rgba(59, 130, 246, 0.35)), 0 0 16px var(--flame-color, #3b82f6);
+}
+
+.lumi-slider-track::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
+  border: 3px solid var(--flame-color, #3b82f6);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25), 0 0 0 4px var(--flame-color-glow, rgba(59, 130, 246, 0.25)), 0 0 10px var(--flame-color, #3b82f6);
+  cursor: pointer;
+}
+
+/* 3D SOCIAL BUTTONS: YOUTUBE & TIKTOK */
+.btn-social-3d {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 11px 22px;
+  border-radius: 9999px;
+  font-family: var(--ff-sans);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s cubic-bezier(0.3, 0.7, 0.2, 1);
+  transform: translateY(0);
+  text-decoration: none;
+}
+
+.btn-social-3d:hover {
+  filter: brightness(1.1);
+}
+
+.btn-social-3d:active {
+  transform: translateY(4px) !important;
+}
+
+.btn-youtube-3d {
+  background: linear-gradient(180deg, #ff1e1e 0%, #cc0000 100%);
+  color: #ffffff;
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 0 #800000, 0 6px 12px rgba(220, 38, 38, 0.35);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.btn-youtube-3d:hover {
+  box-shadow: 0 4px 0 #800000, 0 8px 16px rgba(220, 38, 38, 0.5);
+}
+.btn-youtube-3d:active {
+  box-shadow: 0 0 0 #800000, 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-tiktok-3d {
+  background: linear-gradient(180deg, #1f242d 0%, #0d0f14 100%);
+  color: #ffffff;
+  border-top: 1px solid rgba(0, 242, 254, 0.6);
+  border-bottom: 1px solid rgba(254, 9, 121, 0.6);
+  box-shadow: 0 4px 0 #000000, 0 6px 14px rgba(0, 242, 254, 0.25), 0 0 12px rgba(254, 9, 121, 0.25);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.btn-tiktok-3d:hover {
+  box-shadow: 0 4px 0 #000000, 0 8px 18px rgba(0, 242, 254, 0.4), 0 0 16px rgba(254, 9, 121, 0.4);
+}
+.btn-tiktok-3d:active {
+  box-shadow: 0 0 0 #000000, 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+

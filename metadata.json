@@ -1,0 +1,6 @@
+{
+  "name": "Simulateur de Flamme & Spectroscopie",
+  "description": "Explorez la thermique de combustion et l'émission spectrale atomique par excitation thermique avec visualisation 3D et mode sombre.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
